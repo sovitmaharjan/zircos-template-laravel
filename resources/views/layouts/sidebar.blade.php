@@ -1,5 +1,6 @@
 @php
     $product_packaging_detail = Request::is('product-packaging-detail*');
+    $product_price_conversion = Request::is('product-price-conversion*');
 @endphp
 <div class="left side-menu">
     <div class="sidebar-inner slimscrollleft">
@@ -43,7 +44,7 @@
                         </span></a>
                 </li>
                 <li>
-                    <a href="{{  route('product-price-conversion.index')  }}" class="waves-effect"><i class="mdi mdi-layers"></i><span> Product Price
+                    <a href="{{  route('product-price-conversion.index')  }}" class="waves-effect {{ $product_price_conversion ? 'active' : '' }}"><i class="mdi mdi-layers"></i><span> Price Conversion
                         </span></a>
                 </li>
 

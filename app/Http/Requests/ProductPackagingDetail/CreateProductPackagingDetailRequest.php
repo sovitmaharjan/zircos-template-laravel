@@ -16,7 +16,7 @@ class CreateProductPackagingDetailRequest extends FormRequest
         return [
             'product_code' => 'required',
             'product_variant_code' => 'nullable',
-            // 'micro_unit_code' => 'required',
+            'micro_unit_code' => 'required',
             // 'unit_code' => 'required_with:micro_unit_code',
             // 'macro_unit_code' => 'required_with:unit_code',
             // 'super_unit_code' => 'required_with:macro_unit_code',

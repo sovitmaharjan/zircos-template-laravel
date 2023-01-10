@@ -50,6 +50,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error("product_code")
+                                                    <span class="help-block text-danger"><small>{{ $message }}</small></span>
+                                                @enderror
                                             </div>
                                             <label class="col-md-1 control-label">Variant</label>
                                             <div class="col-md-5">
@@ -73,6 +76,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                @error("micro_unit_code")
+                                                    <span class="help-block text-danger"><small>{{ $message }}</small></span>
+                                                @enderror
                                             </div>
                                             <label class="col-md-1 control-label">Unit</label>
                                             <div class="col-md-2">
