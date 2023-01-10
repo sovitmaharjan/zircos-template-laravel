@@ -13,6 +13,10 @@
 <script src="{{ asset('assets/js/jquery.scrollTo.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
 
+
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+
 <!-- App js -->
 <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
