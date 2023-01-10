@@ -27,12 +27,15 @@
                             <h3 class="panel-title">Fields with * are mendatory</h3>
                         </div>
                         <div class="panel-body">
-
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="button-list m-b-0">
+                                        <a href="{{ route('product-packaging-detail.index') }}"
+                                            class="btn btn-success waves-effect w-md waves-light">List</a>
+                                    </div>
                                     {{-- @php
-                                    dd($errors)
-                                @endphp --}}
+                                        dd($errors)
+                                    @endphp --}}
                                     <form class="form-horizontal" method="post"
                                         action="{{ route('product-packaging-detail.store') }}">
                                         @csrf
@@ -56,16 +59,17 @@
                                         <div class="form-group">
                                             <label class="col-md-1 control-label">Micro</label>
                                             <div class="col-md-2">
-                                                <select class="form-control" name="micro_unit_code" id="micro" required="required">
+                                                <select class="form-control" name="micro_unit_code" id="micro"
+                                                    required="required">
                                                     <option value="">Select</option>
                                                     @foreach ($package_type as $item)
                                                         <option value="{{ $item->package_code }}"
                                                             @if (old('micro_unit_code')) @if (old('micro_unit_code') == $item->package_code)
                                                                 selected="selected" @endif
-                                                            @else
-                                                                @if ($product_packaging_detail->micro_unit_code == $item->package_code) selected="selected" @endif
+                                                        @else
+                                                            @if ($product_packaging_detail->micro_unit_code == $item->package_code) selected="selected" @endif
                                                             @endif
-                                                        >{{ $item->package_name }}</option>
+                                                            >{{ $item->package_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -74,13 +78,13 @@
                                                 <select class="form-control" name="unit_code" id="unit">
                                                     <option value="">Select</option>
                                                     @foreach ($package_type as $item)
-                                                    <option value="{{ $item->package_code }}"
-                                                        @if (old('unit_code')) @if (old('unit_code') == $item->package_code)
+                                                        <option value="{{ $item->package_code }}"
+                                                            @if (old('unit_code')) @if (old('unit_code') == $item->package_code)
                                                             selected="selected" @endif
                                                         @else
                                                             @if ($product_packaging_detail->unit_code == $item->package_code) selected="selected" @endif
-                                                        @endif
-                                                    >{{ $item->package_name }}</option>
+                                                            @endif
+                                                            >{{ $item->package_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -89,13 +93,13 @@
                                                 <select class="form-control" name="macro_unit_code" id="macro">
                                                     <option value="">Select</option>
                                                     @foreach ($package_type as $item)
-                                                    <option value="{{ $item->package_code }}"
-                                                        @if (old('macro_unit_code')) @if (old('macro_unit_code') == $item->package_code)
+                                                        <option value="{{ $item->package_code }}"
+                                                            @if (old('macro_unit_code')) @if (old('macro_unit_code') == $item->package_code)
                                                             selected="selected" @endif
                                                         @else
                                                             @if ($product_packaging_detail->macro_unit_code == $item->package_code) selected="selected" @endif
-                                                        @endif
-                                                    >{{ $item->package_name }}</option>
+                                                            @endif
+                                                            >{{ $item->package_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -104,13 +108,13 @@
                                                 <select class="form-control" name="super_unit_code" id="super">
                                                     <option value="">Select</option>
                                                     @foreach ($package_type as $item)
-                                                    <option value="{{ $item->package_code }}"
-                                                        @if (old('super_unit_code')) @if (old('super_unit_code') == $item->package_code)
+                                                        <option value="{{ $item->package_code }}"
+                                                            @if (old('super_unit_code')) @if (old('super_unit_code') == $item->package_code)
                                                             selected="selected" @endif
                                                         @else
                                                             @if ($product_packaging_detail->super_unit_code == $item->package_code) selected="selected" @endif
-                                                        @endif
-                                                    >{{ $item->package_name }}</option>
+                                                            @endif
+                                                            >{{ $item->package_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -127,13 +131,31 @@
                                                     </thead>
                                                     <tbody id="tbody">
                                                         @if ($product_packaging_detail->micro_to_unit_value)
-                                                            <tr class=" table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="micro_to_unit_value" value="{{ $product_packaging_detail->micro_to_unit_value }}" required="required"></td></tr>
+                                                            <tr class=" table-bordered">
+                                                                <td>Micro to unit value</td>
+                                                                <td> <input type="number" class="form-control"
+                                                                        name="micro_to_unit_value"
+                                                                        value="{{ $product_packaging_detail->micro_to_unit_value }}"
+                                                                        required="required"></td>
+                                                            </tr>
                                                         @endif
                                                         @if ($product_packaging_detail->unit_to_macro_value)
-                                                            <tr class=" table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="unit_to_macro_value" value="{{ $product_packaging_detail->unit_to_macro_value }}" required="required"></td></tr>
+                                                            <tr class=" table-bordered">
+                                                                <td>Micro to unit value</td>
+                                                                <td> <input type="number" class="form-control"
+                                                                        name="unit_to_macro_value"
+                                                                        value="{{ $product_packaging_detail->unit_to_macro_value }}"
+                                                                        required="required"></td>
+                                                            </tr>
                                                         @endif
                                                         @if ($product_packaging_detail->macro_to_super_value)
-                                                            <tr class=" table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="macro_to_super_value" value="{{ $product_packaging_detail->macro_to_super_value }}" required="required"></td></tr>
+                                                            <tr class=" table-bordered">
+                                                                <td>Micro to unit value</td>
+                                                                <td> <input type="number" class="form-control"
+                                                                        name="macro_to_super_value"
+                                                                        value="{{ $product_packaging_detail->macro_to_super_value }}"
+                                                                        required="required"></td>
+                                                            </tr>
                                                         @endif
                                                     </tbody>
                                                 </table>
@@ -146,7 +168,8 @@
                                                     Save
                                                 </button>
                                                 <a href="{{ route('product-packaging-detail.create') }}">
-                                                    <button type="button" class="btn btn-default w-md waves-effect m-l-5">
+                                                    <button type="button"
+                                                        class="btn btn-default w-md waves-effect m-l-5">
                                                         Cancel
                                                     </button>
                                                 </a>
@@ -186,17 +209,17 @@
                 if ($('#micro').val() && $('#unit').val()) {
                     $('#tbody').append(
                         '<tr class=" table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="micro_to_unit_value" required="required"></td></tr>'
-                        )
+                    )
                 }
                 if ($('#unit').val() && $('#macro').val()) {
                     $('#tbody').append(
                         '<tr class=" table-bordered"><td>Unit to macro value</td><td> <input type="number" class="form-control" name="unit_to_macro_value" required="required"></td></tr>'
-                        )
+                    )
                 }
                 if ($('#macro').val() && $('#super').val()) {
                     $('#tbody').append(
                         '<tr class=" table-bordered"><td>Macro to super value</td><td> <input type="number" class="form-control" name="macro_to_super_value" required="required"></td></tr>'
-                        )
+                    )
                 }
                 $('#hidden').removeAttr('hidden');
             }

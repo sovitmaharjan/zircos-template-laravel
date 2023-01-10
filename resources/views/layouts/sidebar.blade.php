@@ -43,7 +43,7 @@
                         </span></a>
                 </li>
                 <li>
-                    <a href="{{  route('dashboard')  }}" class="waves-effect"><i class="mdi mdi-layers"></i><span> Product Price
+                    <a href="{{  route('product-price-conversion.index')  }}" class="waves-effect"><i class="mdi mdi-layers"></i><span> Product Price
                         </span></a>
                 </li>
 

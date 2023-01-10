@@ -17,7 +17,7 @@ class ProductPackagingDetailController extends Controller
 
     public function create()
     {
-        $data['product'] = ProductPackagingDetail::distinct()->get(['product_code']);
+        $data['product'] = ProductPackagingDetail::distinct()->get(['product_code']); // product_code as product name, no product table created for now
         $data['package_type'] = PackageType::orderBy('package_name', 'asc')->get();
         return view('product-packaging-detail.create', $data);
     }
@@ -59,7 +59,6 @@ class ProductPackagingDetailController extends Controller
                 return back()->with('success', 'Product packaging detail has been created');
             }
         } catch (Exception $e) {
-            dd($e);
             return back()->with('error', $e->getMessage());
         }
     }

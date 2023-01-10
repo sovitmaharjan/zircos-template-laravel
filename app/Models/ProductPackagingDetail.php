@@ -23,4 +23,9 @@ class ProductPackagingDetail extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function microUnitName()
+    {
+        return $this->belongsTo(PackageType::class, 'micro_unit_code', 'package_code');
+    }
 }
