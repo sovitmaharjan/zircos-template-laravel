@@ -50,8 +50,9 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error("product_code")
-                                                    <span class="help-block text-danger"><small>{{ $message }}</small></span>
+                                                @error('product_code')
+                                                    <span
+                                                        class="help-block text-danger"><small>{{ $message }}</small></span>
                                                 @enderror
                                             </div>
                                             <label class="col-md-1 control-label">Variant</label>
@@ -76,14 +77,15 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error("micro_unit_code")
-                                                    <span class="help-block text-danger"><small>{{ $message }}</small></span>
+                                                @error('micro_unit_code')
+                                                    <span
+                                                        class="help-block text-danger"><small>{{ $message }}</small></span>
                                                 @enderror
                                             </div>
                                             <label class="col-md-1 control-label">Unit</label>
                                             <div class="col-md-2">
-                                                <select class="form-control" name="unit_code" value="{{ old('unit_code') }}"
-                                                    id="unit">
+                                                <select class="form-control" name="unit_code"
+                                                    value="{{ old('unit_code') }}" id="unit">
                                                     <option value="">Select</option>
                                                     @foreach ($package_type as $item)
                                                         <option value="{{ $item->package_code }}">
@@ -116,7 +118,7 @@
                                         </div>
                                         <div class="form-group" hidden id="hidden">
                                             <label class="col-md-1 control-label">Unit Values</label>
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr class="table-bordered">
@@ -128,6 +130,19 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <label class="col-md-1 control-label">Unit Count</label>
+                                            <div class="col-md-6">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr class="table-bordered">
+                                                            <th>Unit</th>
+                                                            <th>Count</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody2">
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-11 col-sm-offset-1">
@@ -136,7 +151,8 @@
                                                     Save
                                                 </button>
                                                 <a href="{{ route('product-packaging-detail.create') }}">
-                                                    <button type="button" class="btn btn-default w-md waves-effect m-l-5">
+                                                    <button type="button"
+                                                        class="btn btn-default w-md waves-effect m-l-5">
                                                         Cancel
                                                     </button>
                                                 </a>
@@ -193,26 +209,50 @@
             if ($('#super').val() != "") {
                 count = count + 1;
             }
-            console.log(count);
             if (count > 1) {
                 $('#tbody').html('');
+                $('#tbody2').html('');
                 if ($('#micro').val() && $('#unit').val()) {
                     $('#tbody').append(
-                        '<tr class=" table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="micro_to_unit_value" required="required"></td></tr>'
+                        '<tr class="table-bordered"><td>Micro to unit value</td><td> <input type="number" class="form-control" name="micro_to_unit_value" id="micro_to_unit_value" required="required"></td></tr>'
+                    )
+                    $('#tbody2').append(
+                        '<tr class="table-bordered"><td>' + $('#unit option:selected').text() + '</td><td id="unit_text"></td></tr>'
                     )
                 }
                 if ($('#unit').val() && $('#macro').val()) {
                     $('#tbody').append(
-                        '<tr class=" table-bordered"><td>Unit to macro value</td><td> <input type="number" class="form-control" name="unit_to_macro_value" required="required"></td></tr>'
+                        '<tr class="table-bordered"><td>Unit to macro value</td><td> <input type="number" class="form-control" name="unit_to_macro_value" id="unit_to_macro_value" required="required"></td></tr>'
+                    )
+                    $('#tbody2').append(
+                        '<tr class="table-bordered"><td>' + $('#macro option:selected').text() + '</td><td id="macro_text"></td></tr>'
                     )
                 }
                 if ($('#macro').val() && $('#super').val()) {
                     $('#tbody').append(
-                        '<tr class=" table-bordered"><td>Macro to super value</td><td> <input type="number" class="form-control" name="macro_to_super_value" required="required"></td></tr>'
+                        '<tr class="table-bordered"><td>Macro to super value</td><td> <input type="number" class="form-control" name="macro_to_super_value" id="macro_to_super_value" required="required"></td></tr>'
+                    )
+                    $('#tbody2').append(
+                        '<tr class="table-bordered"><td>' + $('#super option:selected').text() + '</td><td id="super_text"></td></tr>'
                     )
                 }
                 $('#hidden').removeAttr('hidden');
             }
         });
+
+        $(document).on('keyup', '#micro_to_unit_value', function() {
+            data = $(this).val() + $('#micro option:selected').text();
+            $('#unit_text').text(data);
+        })
+
+        $(document).on('keyup', '#unit_to_macro_value', function() {
+            data = $(this).val() + $('#unit option:selected').text() + ' | ' + parseInt($(this).val()) * parseInt($('#micro_to_unit_value').val()) + $('#micro option:selected').text();
+            $('#macro_text').text(data);
+        })
+
+        $(document).on('keyup', '#macro_to_super_value', function() {
+            data = $(this).val() + $('#macro option:selected').text() + ' | ' + parseInt($(this).val()) * parseInt($('#micro_to_unit_value').val()) + $('#unit option:selected').text() + ' | ' + parseInt($(this).val()) * parseInt($('#unit_to_macro_value').val()) * parseInt($('#micro_to_unit_value').val()) + $('#micro option:selected').text();
+            $('#super_text').text(data);
+        })
     </script>
 @endsection

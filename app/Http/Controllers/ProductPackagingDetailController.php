@@ -6,6 +6,7 @@ use App\Http\Requests\ProductPackagingDetail\CreateProductPackagingDetailRequest
 use App\Models\PackageType;
 use App\Models\ProductPackagingDetail;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductPackagingDetailController extends Controller
 {
@@ -63,11 +64,17 @@ class ProductPackagingDetailController extends Controller
         }
     }
 
-    public function edit(ProductPackagingDetail $product_packaging_detail)
+    public function edit($id)
     {
         $data['product'] = ProductPackagingDetail::distinct()->get(['product_code']);
         $data['package_type'] = PackageType::orderBy('package_name', 'asc')->get();
-        $data['product_packaging_detail'] = $product_packaging_detail;
+        $data['product_packaging_detail'] = DB::table('product_packaging_details as ppd')->where('id', $id)->select(
+            'ppd.*',
+            DB::raw('(select package_name from package_types where package_code = ppd.micro_unit_code) micro_unit_name'),
+            DB::raw('(select package_name from package_types where package_code = ppd.unit_code) unit_name'),
+            DB::raw('(select package_name from package_types where package_code = ppd.macro_unit_code) macro_unit_name'),
+            DB::raw('(select package_name from package_types where package_code = ppd.super_unit_code) super_unit_name'),
+        )->first();
         return view('product-packaging-detail.edit', $data);
     }
 
